@@ -1,4 +1,4 @@
-if has ("user_commands")
+"if has ("user_commands")
 
 " {{{ Globals
 
@@ -11,11 +11,10 @@ let g:pdv_cfg_CommentSingle = "//"
 
 " Default values
 let g:pdv_cfg_Type = "mixed"
-let g:pdv_cfg_Package = ""
-let g:pdv_cfg_Version = "$id$"
-let g:pdv_cfg_Author = "Your name <yourmail@yourhost.com>"
-let g:pdv_cfg_Copyright = "1997-2005 The PHP Group"
-let g:pdv_cfg_License = "PHP Version 5.2 {@link http://www.php.net/license/5_2.txt}"
+
+if !exists("g:pdv_cfg_Author")
+    let g:pdv_cfg_Author = "Your name <yourmail@yourhost.com>"
+endif
 
 let g:pdv_cfg_ReturnVal = "void"
 
@@ -27,7 +26,9 @@ let g:pdv_cfg_Uses = 1
 let g:pdv_cfg_paste = 1
 
 " Wether for PHP5 code PHP4 tags should be set, like @access,... (1|0)?
-let g:pdv_cfg_php4always = 1
+if !exists("g:pdv_cfg_Uses")
+    let g:pdv_cfg_php4always = 0
+endif
 
 " Wether to guess scopes after PEAR coding standards:
 " $_foo/_bar() == <private|protected> (1|0)?
@@ -356,9 +357,6 @@ func! PhpDocClass()
     if l:final != ""
         exe l:txtBOL . g:pdv_cfg_Commentn . "@final" . g:pdv_cfg_EOL
     endif
-    " exe l:txtBOL . g:pdv_cfg_Commentn . "@package " . g:pdv_cfg_Package . g:pdv_cfg_EOL
-    " exe l:txtBOL . g:pdv_cfg_Commentn . "@version " . g:pdv_cfg_Version . g:pdv_cfg_EOL
-    " exe l:txtBOL . g:pdv_cfg_Commentn . "@copyright " . g:pdv_cfg_Copyright . g:pdv_cfg_EOL
     exe l:txtBOL . g:pdv_cfg_Commentn . "@author " . g:pdv_cfg_Author g:pdv_cfg_EOL
     " exe l:txtBOL . g:pdv_cfg_Commentn . "@license " . g:pdv_cfg_License . g:pdv_cfg_EOL
 
@@ -439,4 +437,4 @@ endfunc
 
 " }}}
 
-endif " user_commands
+"endif " user_commands
